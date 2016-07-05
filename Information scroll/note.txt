@@ -1,0 +1,47 @@
+<marquee>:
+由于HTML5的出现用的很少
+1.behavior滚动的方式
+  alternate：表示在两端之间来回滚动。
+  scroll:表示由一端滚动到另一端，会重复。
+  slide：表示由一端滚动到另一端，不会重复。
+2.direction滚动的方向down、up、left、right
+3.loop滚动的次数(当loop=-1表示一直滚动下去，默认为-1)
+4.scrollamount设定活动字幕的滚动速度
+5.scrolldelay设定活动字幕滚动两次之间的延迟时间
+
+setInterval() 方法可按照指定的周期（以毫秒计）来调用函数或计算表达式。
+setInterval() 方法会不停地调用函数，直到 clearInterval() 被调用或窗口被关闭。由 setInterval() 返回的 ID 值可用作 clearInterval() 方法的参数。
+setInterval(code,millisec[,"lang"])
+
+scrollTop:设置或获取位于对象最顶端和窗口中可见内容的最顶端之间的距离 (即网页被卷去的高)
+
+setTimeout(表达式，延迟时间)
+在执行时，是在载入后延迟指定时间后，去执行一次表达式，仅执行一次。
+
+setInterval(表达式，交互时间)
+在执行时，它从载入后，每隔指定时间就执行一次表达式
+
+scrollHeight返回元素的完整的高度，以像素为单位.
+当一个元素拥有滚动条时（比如由于 CSS 的 overflow 属性），这些属性和 offsetHeight 不同，offsetHeight只是报告元素的可见部分的大小。这是非标准的但却得到很好支持的属性。
+
+这个属性是非标准的，所以在不同浏览器中可能会存在差异，例如：
+在Firefox浏览器中：
+scrollHeight就是滚动条可滚动的部分还要加上border的高度还要加上横向滚动条不可用的高度,与clientHeight比起来,多个border的高度跟横向滚动条不可用的高度.
+在IE浏览器中：
+指这个对象它所包含的对象的高度加上border的高度和margin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

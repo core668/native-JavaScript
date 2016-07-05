@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>放大镜特效</title>
+	<style type="text/css">
+        *{
+        	margin: 0;
+        	padding: 0;
+        }
+
+        #demo{
+        	display: block;
+        	width: 400px;
+        	height: 255px;
+        	margin: 50px;
+        	position: relative;
+        	border: 1px solid #ccc;
+        }
+
+        #small-box{
+        	position: relative;
+        	z-index: 1;
+        }
+
+        #float-box{
+        	display: none;
+        	width: 160px;
+        	height: 120px;
+        	position: absolute;
+        	background: #ffffcc;
+        	border: 1px solid #ccc;
+        	filter: alpha(opacity=50);
+        	opacity: 0.5;
+        	cursor: move;
+        }
+        
+        #mark{
+        	position: absolute;
+        	display: block;
+        	width: 400px;
+        	height: 255px;
+        	z-index: 10;
+        	cursor: move;
+        	background: #fff;
+        	filter: alpha(opacity=0);
+        	opacity: 0;
+        }
+
+        #big-box{
+        	display: none;
+        	position: absolute;
+        	top: 0;
+        	left: 460px;
+        	width: 400px;
+        	height: 300px;
+        	overflow: hidden;
+        	border: 1px solid #ccc;
+        	z-index: 1;
+        }
+
+        #big-box img{
+        	position: absolute;
+        	z-index: 5;
+        }
+
+	</style>
+
+	<script>
+		window.onload = function(){
+			var oDemo = document.getElementById('demo');
+			var oSmallBox = document.getElementById('small-box');
+			var oMark = document.getElementById('mark');
+			var oFloatBox = document.getElementById('float-box');
+			var oBigBox = document.getElementById('big-box');
+			var oBigBoxImage = oBigBox.getElementsByTagName('img')[0];
+
+			oMark.onmouseover = function(){
+				oFloatBox.style.display = 'block';
+				oBigBox.style.display = 'block';
+			}
+
+			oMark.onmouseout = function(){
+				oFloatBox.style.display = 'none';
+				oBigBox.style.display = 'none';
+			}
+
+			oMark.onmousemove = function(ev){
+                var _event = ev || window.event;
+
+                var left = _event.clientX - oDemo.offsetLeft - oMark.offsetLeft - oFloatBox.offsetWidth/2;
+                var top = _event.clientY - oDemo.offsetTop - oMark.offsetTop - oFloatBox.offsetHeight/2;
+
+                if(left<0){
+                	left = 0;
+                }else if(left>(oMark.offsetWidth - oFloatBox.offsetWidth)){
+                    left = oMark.offsetWidth - oFloatBox.offsetWidth;
+                }
+
+                if(top<0){
+                	top = 0;
+                }else if(top>(oMark.offsetHeight - oFloatBox.offsetHeight)){
+                    top = oMark.offsetHeight - oFloatBox.offsetHeight;
+                }
+
+                oFloatBox.style.left = left + 'px';
+                oFloatBox.style.top = top + 'px';
+
+                var percentX = left/(oMark.offsetWidth - oFloatBox.offsetWidth);
+                var percentY = top/(oMark.offsetHeight - oFloatBox.offsetHeight);
+
+                oBigBoxImage.style.left = -percentX * (oBigBoxImage.offsetWidth - oBigBox.offsetWidth) + 'px';
+                oBigBoxImage.style.top = -percentY * (oBigBoxImage.offsetHeight - oBigBox.offsetHeight) + 'px';
+
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="demo">
+		<div id="small-box">
+		    <div id="mark"></div><!-- 在图片和放大镜上面再加一层 -->
+			<div id="float-box"></div>
+			<img src="images/macbook-small.jpg">
+		</div>
+		<div id="big-box">
+			<img src="images/macbook-big.jpg">
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>信息列表的制作</title>
+	<style type="text/css">
+    *{margin: 0;padding: 0;}
+    .list{width: 300px;height: 200px;border: 1px solid #ccc;margin: 0 auto;margin-bottom: 10px;}
+    h3{height: 24px;background: #ccc;line-height: 24px;font-size: 14px;}
+    ul li{list-style: none;border-bottom: 1px dotted #ccc;line-height: 24px;color: #333;font-size: 12px;padding-left: 10px;}
+    ul li span{width: 20px;height: 20px;background: #F93;display: inline-block;text-align: center;line-height: 20px;}
+    
+    #list2 ul li a{text-decoration: none;color: #000;}
+    #list2 ul li a:hover{color: #900;text-decoration: underline;}
+
+    #list3 ul li a{text-decoration: none;color: #000;}
+    #list3 ul li:hover{background: #F90;}
+    #list3 ul li:hover a{color: #00f;}
+
+    #list4 ul li dl{padding-left: 20px;display: none;}
+    #list4 li:hover dl{display: block;}
+    #list4 li:hover span{background: #666;}
+
+	</style>
+</head>
+<body>
+	<div class="list" id="list1">
+		<h3>阅读排行</h3>
+		<ul>
+			<li><span>△</span>舌尖上的中国：传世美味炮制完全攻略</li>
+			<li><span>△</span>完全图解狗的心理</li>
+			<li><span>△</span>左手婚姻，右手爱情</li>
+			<li><span>△</span>假如给我三天光明（电子书）</li>
+		</ul>
+	</div>
+
+	<div class="list" id="list2">
+		<h3>阅读排行</h3>
+		<ul>
+			<li><a href="#"><span>△</span>舌尖上的中国：传世美味炮制完全攻略</a></li>
+			<li><a href="#"><span>△</span>完全图解狗的心理</a></li>
+			<li><a href="#"><span>△</span>左手婚姻，右手爱情</a></li>
+			<li><a href="#"><span>△</span>假如给我三天光明（电子书）</a></li>
+		</ul>
+	</div>
+
+	<div class="list" id="list3">
+		<h3>阅读排行</h3>
+		<ul>
+			<li><a href="#"><span>△</span>舌尖上的中国：传世美味炮制完全攻略</a></li>
+			<li><a href="#"><span>△</span>完全图解狗的心理</a></li>
+			<li><a href="#"><span>△</span>左手婚姻，右手爱情</a></li>
+			<li><a href="#"><span>△</span>假如给我三天光明（电子书）</a></li>
+		</ul>
+	</div>
+
+	<div class="list" id="list4">
+		<h3>阅读排行</h3>
+		<ul>
+			<li>
+			    <span>△</span>舌尖上的中国：传世美味炮制完全攻略
+			    <dl>
+			    	<dt>舌尖上的中国</dt>
+			    	<dd>作者：本书编写组</dd>
+			    	<dd>价格：￥8.94</dd>
+			    </dl>
+			</li>
+			<li>
+			    <span>△</span>完全图解狗的心理
+			    <dl>
+			    	<dt>完全图解狗的心理</dt>
+			    	<dd>作者：林乐毅</dd>
+			    	<dd>价格：￥1.99</dd>
+			    </dl>
+			</li>
+			<li>
+			    <span>△</span>左手婚姻，右手爱情
+			    <dl>
+			    	<dt>左手婚姻，右手爱情</dt>
+			    	<dd>作者：赫本的眼睛</dd>
+			    	<dd>价格：￥2.99</dd>
+			    </dl>
+			</li>
+			<li>
+			    <span>△</span>假如给我三天光明（电子书）
+			    <dl>
+			    	<dt>完全图解狗的心理</dt>
+			    	<dd>作者：林乐毅</dd>
+			    	<dd>价格：￥1.99</dd>
+			    </dl>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>

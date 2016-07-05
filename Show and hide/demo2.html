@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>定时展开与定时收起</title>
+	<style type="text/css">
+    body{
+    	margin: 0 auto;
+    	padding: 0;
+    }
+
+    #pn{
+    	background: #e8e8e8;
+    	width: 950px;
+    	display: block;
+    	margin: 0 auto;
+    	padding: 5px;
+    	height: auto;
+    	text-align: center;
+    }
+
+    .content{
+    	margin: 0 auto;
+    	padding: 10px;
+    	width: 950px;
+    	background: gray;
+    	text-align: center;
+    	height: 40px;
+    	color: #fff;
+    }
+
+	</style>
+
+
+</head>
+<body>
+	<div id="pn">
+		<h1>欢迎来到COORE</h1>
+		<h2>大幅广告</h2>
+	</div>
+	<div class="content">
+		COORE欢迎你
+		<br>
+		正文
+	</div>
+
+	<script type="text/javascript">
+		var h = 0;
+		function addH(){
+			if (h < 300) {
+				h += 5;
+				document.getElementById('pn').style.height = h + 'px';
+			}else{
+				return;
+			}//只是实现了一次广告高度增加
+			setTimeout('addH()',30);
+		}
+
+        function subH(){
+        	if (h > 0) {
+        		h -= 5;
+        		document.getElementById('pn').style.height = h + 'px';
+        	} else {
+        		document.getElementById('pn').style.display = 'none';
+        		return;
+        	}
+        	setTimeout('subH()',30);
+        }
+
+		addH();
+		setTimeout('subH()',5000);
+
+		/*setTimeout(code,millisec)方法用于在指定的毫秒数后调用函数或计算表达式
+		onload()事件 在页面或图像加载完成后立即发生*/
+
+
+	</script>
+</body>
+</html>

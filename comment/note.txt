@@ -1,0 +1,22 @@
+事件代理的时候，使用事件对象中的srcElement属性,获取触发元素。
+IE浏览器支持window.event.srcElement ， 而firefox支持window.event.target。
+
+要删除当前元素el,先要使用parentNode找到父节点，然后在使用removeChild(el)删除el元素。
+
+使用getAttribute()来获取元素的属性。
+
+使用setAttribute()来设置元素的属性。
+
+onkeyup 事件会在键盘按键被松开时发生。
+
+创建元素的方法createElement()
+
+先创建日期对象，使用getMonth()获取月份，获取的值从0开始,所以获取值后 + 1。
+
+字符串不能进行数值加
+
+
+
+
+
+

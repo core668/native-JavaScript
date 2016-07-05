@@ -1,0 +1,27 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+如果想让元素宽度为自适应，需要把width设为100%；
+
+去掉输入框的默认边框，需输入border:0 none;
+
+字符集图标：将网页上常见的icon做成font(字符集),以字体的方式插入到网页上，作用减轻服务器负担，减少宽带。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

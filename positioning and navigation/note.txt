@@ -1,0 +1,52 @@
+﻿网页定位导航特效
+
+分析》设计》实现
+
+特效分析
+
+分为左右两个部分
+  左侧的内容，右侧悬浮的导航菜单
+  左侧滚动时，右侧内容不改变位置
+  点击右侧链接，左侧定位到相关栏目
+  左侧滚动到相应栏目，右侧定位到对应链接
+
+重难点
+  1.左侧栏目和右侧导航菜单的显示样式实现
+  2.导航与滚动条之间的定位关联
+    导航条随着滚动条的滚动改变焦点，其实就是给相应的项目增加样式，这是这个特效的难点。
+
+技术点：
+  1.锚点（anchor）：锚点是网页制作中超链接的一种，又叫命名锚记。锚点是一种页面内的超级链接。使用锚点可以在文档中设置标记，这些标记通常放在文档的顶部。
+  2.关于滚动条定位的事件和方法（借助jQuery）
+
+特效所需掌握的技术点
+  1.scroll([data],fn):当用户滚动指定的元素时，会发生scroll事件。
+    scroll事件适用于所有可滚动的元素和window对象（浏览器窗口）。
+    例如 当页面滚动条变化时，执行函数......；
+    $(window).scroll(function(){/*......*/});
+  2.scrollTop([val]):获取/设置匹配元素相对滚动条顶部的偏移。
+  3.offset():获取匹配元素的相对位移。返回的对象包含两个整形属性：top和left，以像素计。
+
+IETester包含多个版本的IE，可以方便的用来进行兼容性测试，获取下载或者更多信息可以访问：http://www.my-debugbar.com/wiki/IETester/HomePage
+
+getElementByClassName
+IE浏览器对该方法支持较差
+/*根据className获取元素，不适合多个类名*/
+  function getByClassName(obj,cls){
+    var elements = obj.getElementsByTagName("*");
+    var result = [];
+    for(var i=0;i<elements.length;i++){
+      if(elements[i].className == cls){
+        result.push(elements[i]);
+      }
+    }
+    return result;
+  }
+
+var top = document.documentElement ? document.documentElement.scrollTop : document.body.scrollTop;
+谷歌浏览器不支持document.documentElement.scrollTop
+
+var top = document.documentElement.scrollTop || document.body.scrollTop;
+
+
+

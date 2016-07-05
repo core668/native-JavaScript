@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>弹出层</title>
+	<link type="text/css" rel="stylesheet" href="style/main.css" />
+<style type="text/css">
+	#mask{/*遮罩层样式*/
+		background: #000;
+		opacity: 0.75;
+		filter:alpha(opacity:75);
+		height: 1000px;
+		width: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: 1000;
+
+	}
+
+	#login{/*登录框login的样式*/
+        position: fixed;
+        left: 30%;
+        top: 30%;
+        z-index: 1001;
+	}
+
+	.loginCon{/*登录框内容loginCon的样式*/
+        width: 670px;
+        height: 380px;
+        background: url(img/loginBg.png) no-repeat;
+        position: relative;
+	}
+
+	#close{
+		width: 30px;
+		height: 30px;
+		background: url(img/close.png) no-repeat;
+		cursor: pointer;
+		position: absolute;
+		right: 5px;
+		top: 5px;
+	}
+</style>
+
+<script type="text/javascript">
+	window.onload = function(){
+		var oBtn = document.getElementById('btnLogin');
+
+		function Popup(){
+            //获取页面的高度和宽度
+	        var sHeight = document.documentElement.scrollHeight;
+	        var sWidth = document.documentElement.scrollWidth;
+
+	        //可视区域的高度和宽度
+	        var wHeight = document.documentElement.clientHeight;
+	        //如果说页面是一个竖向的页面，那么可视区的宽度和页面宽度一样
+
+			var oMask = document.createElement('div');
+			oMask.id='mask';
+			oMask.style.height=sHeight+'px';
+			oMask.style.width=sWidth+'px';
+			document.body.appendChild(oMask);
+
+			var oLogin = document.createElement('div');
+			oLogin.id='login';
+			oLogin.innerHTML = '<div class="loginCon"><div id="close"></div></div>'
+			document.body.appendChild(oLogin);
+
+			//获取login的宽度和高度,获取的是页面已有的元素高度宽度，因此要先插入
+			var dHeight = oLogin.offsetHeight;
+			var dWidth = oLogin.offsetWidth;
+
+			oLogin.style.left = (sWidth-dWidth)/2+'px';
+			oLogin.style.top = (wHeight-dHeight)/2+'px';
+
+			var oClose = document.getElementById('close');
+			oMask.onclick = oClose.onclick = function(){
+				document.body.removeChild(oMask);
+				document.body.removeChild(oLogin);
+			}
+		}
+
+		oBtn.onclick = function(){
+			Popup();
+		}
+	}
+</script>
+</head>
+<body>
+<div id="header">
+  <div class="container">
+    <div id="login-area">
+      <button id="btnLogin" hidefocus="true" class="login-btn">登录</button>
+    </div>
+  </div>
+</div>
+<!-- <div id="mask">
+	遮罩层
+</div> -->
+
+<!-- <div id="login">
+	<div class="loginCon">
+		<div id="close"></div>
+	</div>
+</div> -->
+</body>
+</html>

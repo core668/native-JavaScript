@@ -1,0 +1,128 @@
+<input>标签
+·搜索框中type的取值
+<input type="button">
+<input type="submit">
+
+<input>的局限性
+·<input>是自闭合标签，标签内不能嵌套其他HTML代码，不能定义复杂样式按钮，需要用<button>标签。
+
+搜索框中的<FORM>标签
+<form action="http://www.baidu.com/s" target="_blank" method="get">
+    <input type="text" name="wd" class="search_key" placeholder="搜索内容">
+    <input type="submit" value="搜索" class="search_btn search_btn_reset">
+</form>
+
+<input>提交按钮的默认行为
+·当<input>标签的type="submit"时，可以提交表单内容到服务器；
+·此时按钮必须放置在要提交的表单元素内，也就是<form>标签内。
+
+使用<ul>制作提示列表
+·<ul>用于无序序列展示
+·需要配合<li>标签
+·一般情况下需要去掉默认样式
+
+智能提示动态效果实现
+·借助jQuery & JS脚本完成动态效果
+·事件绑定和事件代理
+·AJAX（用于和服务器之间的信息交换）
+
+jQuery中的DOM操作
+
+JavaScript:
+获得元素：document.getElementById("id");
+设置元素内容：var dom = document.getElementById('id');
+              dom.innerHTML = "html code";
+
+jQuery:
+获得元素：$("#id");
+设置元素内容：$("#id").html("html code");
+
+
+事件绑定
+JavaScript:
+var el = document.getElementById("id");
+if(el.attachEvent){
+	el.attachEvent("onclick",fn);
+}else if(el.addEventListener){
+	el.addEventListener("click",fn,false);
+}else{
+	el["onclick"]=fn;
+}
+addEventListener适用于非IE浏览器
+attachEvent适用于IE浏览器
+
+jQuery:
+$("#id").bind("click",fn);
+
+AJAX原理
+JavaScript:
+var xhr;
+if(window.ActiveObjectX){
+	xhr = new.window.ActiveObjectX('Microsoft.XMLHTTP')
+}else if(window.XMLHttpRequest){
+        xhr = new XMLHttpRequest();
+	}
+xhr.onreadystatechange = function(d){
+	if(xhr.status == 200 && xhr.readyState == 4){
+	    var json = JSON.encode(d.responseText);
+	    callback(json);
+	}
+}
+xhr.open('get',url,false);
+xhr.send(null);
+用来发送请求的对象：
+在非IE浏览器下使用XMLHttpRequest
+在IE浏览器下使用ActiveXObject
+
+响应服务器请求的事件：
+onreadystateschange
+当readyState == 4并且status==200时，表示服务器正确响应并返回信息。
+
+JSON.parse()的作用是把字符串转化为JS可以识别的对象
+
+要使用Ajax技术，第三个参数必须设置为false
+
+jQuery:
+$(url,callback,'json');
+
+Ajax发送请求的url地址与服务器地址必须在同一域名下
+
+nginx和fiddler工具设置？
+
+事件代理
+JavaScript:
+var fn = function(){...}
+var callback = function(e){
+	if(e.target.tagName == 'li'){
+	fn();
+	}
+}
+if(document.attachEvent){
+	document.attachEvent('onclick',callback);
+}else if(document.addEventListener){
+	document.addEventListener('click',callback,false);
+}else{
+	document['onclick'] = callback;
+}
+
+jQuery:
+$(document).delegate('li','click',fn);
+为多个元素且由JavaScript动态生成的元素添加事件时使用事件代理
+
+offsetLeft是获得距离父元素左边的距离
+
+把经常使用的代码进行封装，便于重复利用
+
+配置自己的服务器程序WAMP
+
+
+
+
+
+
+
+
+
+
+
+

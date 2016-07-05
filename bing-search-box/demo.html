@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>bing search</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><!-- 防止IE进入怪异文档模式，让它按正常文档模式渲染页面 -->
+	<style type="text/css">
+
+    body{
+    	background-color: #333;
+    }
+
+    .fl{
+    	float: left;
+    }
+
+    .bg-div{
+    	background-image: url(images/river.jpg);
+    	width: 1228px;
+    	height: 698px;
+    	margin: 0 auto;
+    	position: relative;
+    }
+ 
+    .search-box{
+    	position: absolute;
+    	top: 200px;
+    	left: 300px;
+    }
+
+    .logo{
+    	background-image: url(images/logo.png);
+    	width: 107px;
+    	height: 53px;
+    	margin: -4px 18px 0 0; /*负值为反向移动*/
+    }
+
+    form{
+    	background-color: #fff;
+    	float: left;
+    	padding: 5px;
+    }
+
+    .search-input-text{
+        border: 0;
+        height: 25px;
+        line-height: 25px;
+        outline: none;
+        width: 350px;
+    }
+
+    .search-input-button{
+        border: 0;
+        background-image: url(images/search-button.png);
+        width: 29px;
+        height: 29px;
+
+    }
+    
+    .suggest{
+    	width: 388px;
+    	background-color: #fff;
+    	border: 1px solid #999;
+    }
+
+    .suggest ul{
+    	list-style: none;
+    	margin: 0;
+    	padding: 0;
+    }
+
+    .suggest ul li{
+    	padding: 3px;
+    	font-size: 14px;
+    	line-height: 25px;
+    	cursor: pointer;
+    }
+
+    .suggest ul li:hover{
+    	text-decoration: underline;
+    	background-color: #e5e5e5;
+    }
+	</style>
+</head>
+<body>
+	<div class="bg-div">
+	    <div class="search-box">
+			<div class="logo fl"></div>
+			<form id="search-form">
+				<input type="text" class="search-input-text fl" autocomplete="off" id="search_input">
+				<input type="submit" class="search-input-button fl" value="">
+			</form>
+		</div>
+	</div>
+	<div class="suggest" id="search-suggest" style="display: none;">
+		<ul id="search-result">
+			<li>搜索结果1</li>
+			<li>搜索结果2</li>
+			<li>搜索结果3</li>
+
+		</ul>
+	</div>
+    <!-- 原生JS -->
+    <script type="text/javascript">
+    var getDOM = function(id){
+    	return document.getElementById(id);
+    }
+
+    var addEvent = function(id,event,fn){ 
+    	var el = getDOM(id)||document;
+    	if(el.addEventListener){
+    		el.addEventListener(event,fn,false)
+    	}else if(el.attachEvent){
+            el.attachEvent('on'+event,fn)
+    	}
+    }
+
+    var getElementLeft = function(element){
+    	var actualLeft = element.offsetLeft;
+    	var current = element.offsetParent;
+    	while(current != null){
+    		actualLeft += current.offsetLeft;
+    		current = current.offsetParent;
+    	}
+    	return actualLeft;
+    }
+
+    var getElementTop = function(element){
+    	var actualTop = element.offsetTop;
+    	var current = element.offsetParent;
+    	while(current != null){
+    		actualTop += current.offsetTop;
+    		current = current.offsetParent;
+    	}
+    	return actualTop;
+    }
+    
+    var ajaxGet = function(url,callback){
+    	var _xhr = null;
+    	if(window.XMLHttpRequest){
+    		_xhr = new window.XMLHttpRequest();
+    	}else if(window.ActiveXObject){
+    		_xhr = new ActiveXObject
+    		("Microsoft.XMLHTTP");
+    	}
+    	_xhr.onreadystatechange = function(){
+    		if(_xhr.readyState == 4 && _xhr.status == 200){
+    			callback(JSON.parse(_xhr.reponseText));
+    		}
+    	}
+    	_xhr.open('get',url,false);
+    	_xhr.send(null);
+    }
+    //事件代理
+    var delegateEvent = function(target,event,fn){
+    	addEvent(document,event,function(e){
+    		if(e.target.nodeName == target.toUpperCase()){
+    			fn.call(e.target);
+    		}
+    	});
+    }
+
+
+
+    addEvent('search_input','keyup',function(){
+    	/*var searchText = getDOM('search_input').value;
+    	ajaxGet('http://api.bing.com/qsonhs.aspx?q='+searchText,function(d){
+    		var d = d.AS.Results[0].Suggests;
+    		var html = '';
+    		for(var i=0;i<d.length;i++){
+    			html += '<li>'+d[i].Txt+'</li>';
+    		}
+    		getDOM('search-result').innerHTML = html;*/
+    		var _dom = getDOM('search-suggest');
+    		_dom.style.top = getElementTop(getDOM('search-form'))+38+'px';
+	    	_dom.style.left = getElementLeft(getDOM('search-form'))+'px';
+	    	_dom.style.position = 'absolute';
+	    	_dom.style.display = 'block';
+    	/*})*/
+    });
+
+    /*delegateEvent('li','click',function(){
+    	var keyword = this.innerHTML；
+    	location.href = 'http://cn.bing.com/search?q='+keyword;
+    });*/
+
+    addEvent('document','click',function(){
+    	getDOM('search-suggest').style.display = 'none';
+    }) 
+
+    /*$(document).bind('click',function(){
+	            $('#search-suggest').hide();
+		});*/
+    </script>
+
+
+	<!-- jQuery -->
+	<!-- <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script>
+		$('#search_input').bind('keyup',function(){
+			var searchText = $('search_input').val();//用户输入的内容
+			$.get('http://api.bing.com/qsonhs.aspx?q='+searchText,function(d){//bing服务器提供的一个公开的搜索结果的地址,已失效要收费#--
+	                var d = d.AS.Result[0].Suggests;
+	                var html=''
+	                for(var i=0;i<d.length;i++){
+	                	html+='<li>'+d[i].Txt+'</li>';
+	                }
+	                $('#search-result').html(html);
+	                //位置
+	                $('#search-suggest').show().css({
+					top:$('#search-form').offset().top+$('#search-form').height()+10,
+					left:$('#search-form').offset().left,
+					position:'absolute'
+			    });
+	
+			},'json');
+		});
+		$(document).bind('click',function(){
+	            $('#search-suggest').hide();
+		});//当用户点击页面其他位置就隐藏提示框
+		$(document).delegate('li','click',function(){
+			var keyword = $(this).text();
+	            location.href = 'http:/cn.bing.com/search?q='+keyword;
+		})
+	</script> -->
+</body>
+</html>
