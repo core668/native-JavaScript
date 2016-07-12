@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2.1 去除字符串左右两边的空格</title>
+</head>
+<body>
+	<h2>测试去除字符串左右两边的空格</h2>
+	<input type="text" id="strs" value="         需要过滤的空格  ">
+	<input type="button" id="rstrsBtn" value=" 过滤 ">
+
+	<script type="text/javascript">
+		window.onload = function(){
+			var _rstrsBtn = document.getElementById('rstrsBtn'),//获取过滤按钮对象
+			        _strs = document.getElementById('strs');//获取被过滤元素
+
+			_rstrsBtn.onclick = function(){
+				_strs.value = _strs.value.replace(/^(\s|\u00A0)+|(\s|\u00A0)+$/g,"");//正则替换
+			}
+			/*
+			replace()替换一个与正则表达式匹配的子串
+			\s 匹配任何不可见字符，包括空格、制表符、换页符等等。等价于[ \f\n\r\t\v]。
+			\u00A0 ASCII 160 空格， 全角空格 16进制ASCII编码
+			 */
+
+		}
+	</script>
+</body>
+</html>

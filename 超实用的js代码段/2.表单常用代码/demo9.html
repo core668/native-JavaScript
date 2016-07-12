@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2.9 限制字符串长度（区分中英文）</title>
+</head>
+<body>
+    <h2>限制字符串长度（区分中英文）</h2>
+	<input type="text" data-length="5" id="remainingCharacters" data-model="Ch" name="remainingCharacters"><br>
+
+    <script type="text/javascript" src="extend/strLen.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			var forElementArr = function(_elementArr,callBack){//遍历节点
+               var arr = _elementArr,//所有节点对象
+                  self = this;//外层环境
+
+               if (!(_elementArr instanceof Array)) {//如果不是数组，变成数组对象方便处理
+               	    arr = [_elementArr];
+               };
+
+               for(var i = 0,arrLen = arr.length;i < arrLen;i++){//遍历数组
+               	    var arrI = arr[i];
+               	    if (typeof arrI == "string") {//判断是否为字符串
+               	    	arrI = document.getElementById(arrI);
+               	    }
+               	    callBack && callBack(i,arrI);//如果存在回调则执行回调
+               }
+			},
+			showRemainingCharacters = function(_nums,_remainingCharacters){
+				if (_remainingCharacters.search(",")!=-1) { //是否存在
+					//search() 方法用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串。
+					//返回值stringObject 中第一个与 regexp 相匹配的子串的起始位置。
+					//注释：如果没有找到任何匹配的子串，则返回 -1。
+                    _remainingCharacters = _remainingCharacters.split(",");//英文字符串分割
+                    //split() 方法用于把一个字符串分割成字符串数组。
+				}
+				forElementArr(_remainingCharacters,function(){//遍历元素
+					_this.innerHTML = (_nums && _nums.toString())||"0";
+					//toString() 方法可把一个逻辑值转换为字符串，并返回结果。
+				});
+			},
+			remainingCharacters = document.getElementById("remainingCharacters"),
+			      clearNonumber = function(tThis){
+			      	var _v = tThis.value,
+			      	    _vlen = _v.length,
+			      	    dataLength = tThis.getAttribute("data-length"),
+			      	    remainingCharacters = tThis.getAttribute("data-remainingCharacters");
+			      	    //如果有实时显示的属性，则在指定元素显示
+			      	    
+		      	    var dataModel = tThis.getAttribute("data-model");//区分中英文后
+		      	    var subLen = dataLength;//获取数据长度
+		      	    if (dataModel == "Ch") {
+		      	    	_vlen = strLen(_v,dataModel);
+		      	    	var vv = _v.match(/[\u4e00-\u9fa5]/g);
+		      	    	subLen = dataLength - (!vv ? 0:vv.length);
+		      	    }
+		      	    if(_vlen > dataLength){
+		      	    	tThis.value = _v.substr(0,subLen);
+		      	    }
+		      	    if (remainingCharacters) {
+		      	    	showRemainingCharacters(!_vlen?dataLength:(_vlen > dataLength ? 0:dataLength - _vlen),remainingCharacters);
+		      	    }
+			      };
+
+            remainingCharacters.onfocus = function(){
+            	clearNonumber(this);
+            }
+            remainingCharacters.onkeyup = function(){
+            	clearNonumber(this);
+            }
+            remainingCharacters.onblur = function(){
+            	clearNonumber(this);
+            }
+		};
+	</script>
+</body>
+</html>

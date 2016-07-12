@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2.4 关闭输入法</title>
+</head>
+<body>
+	<h2>方案一：植入CSS特殊属性</h2>
+	<input type="text" id="banInputMethodgoogle" value="不支持谷歌浏览器"><br>
+
+	<h2>方案二：事件文本过滤</h2>
+	<input type="text" banInputMethod="1" id="banInputMethod" value="兼容谷歌浏览器"><br>
+
+	<script type="text/javascript">
+	//方案一：植入CSS特殊属性
+		function banInputMethod(_elementArr){
+			var arr = _elementArr, //待处理的所有节点元素
+			   self = this;//为了增加外层域的访问，定义了一个变量self
+
+			//判断元素是否为数组，如果不是数组将其变成数组
+			if (!(_elementArr instanceof Array)) {
+				arr = [_elementArr];
+			}
+			/*
+			instanceof 用于判断一个值是否为某个对象的实例
+			 */
+
+			for (var i = 0, arrLen=arr.length; i < arrLen; i++) {//遍历元素节点
+				var arrI = arr[i];
+				arrI.onfocus = function(){
+					//样式方案，只兼容除Chrome浏览器之外的浏览器
+					this.style.imeMode = "disabled";
+				} 
+				/*
+				imeMode 4个属性
+					auto-打开输入法
+					active 输入法为中文
+					inactive 输入法为英文
+					disable 表示关闭输入法
+				 */
+			}
+		}
+
+		function getElement(eStr){//根据ID获取指定对象
+			return document.getElementById(eStr);
+		}
+
+	    banInputMethod(getElement('banInputMethodgoogle'));
+
+
+		//方案二：事件文本过滤
+		var arr = [//创建节点数组
+            document.getElementById('banInputMethodgoogle'),
+            document.getElementById("banInputMethod")],
+		   self = this;
+
+		for(var i = 0,arrLen = arr.length;i<arrLen;i++){//遍历待处理的节点
+            var arrI = arr[i];
+            arrI.onfocus = function(){    //获取焦点事件
+            	this.style.imeMode = 'disabled';  //样式方案，只兼容除了谷歌浏览器之外的浏览器
+            }
+
+            var banInputMethod = arrI.getAttribute('banInputMethod');//获取banInputMethod属性
+            if(banInputMethod){//判断是否存在banInputMethod
+
+                var clearChinese = function(_this){
+                	var _v = _this.value;
+                	_this.value = _v.replace(/[\u4e00-\u9fa5]/g,""); //正则替换中文字符
+                }
+
+                arrI.onkeyup = function(){    //keyup事件
+                	clearChinese(this);
+                }
+
+                arrI.onblur = function(){    //blur事件
+                	clearChinese(this);
+                }
+            }
+		}
+
+		
+	</script>
+</body>
+</html>

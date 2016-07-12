@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2.2 验证用户是否输入</title>
+</head>
+<body>
+	<h2>验证是否输入</h2>
+	<input type="text" id="strs" value="      需要过滤空格  ">
+	<input type="button" id="isContent" value="验证是否为空"><br>
+
+	<script type="text/javascript">
+		window.onload = function(){
+			var _isContent = document.getElementById('isContent'),//获取验证是否为空的响应元素
+			         _strs = document.getElementById('strs');//获取待验证的文本对象
+
+			_isContent.onclick = function(){
+				if (!_strs.value.replace(/^(\s|\u00A0)+|(\s\u00A0)+$/g,"")) {
+				//先去除字符串左右两边的空格，再判断是否为空
+				    alert("您的输入为空！");
+				} else {
+                    alert("您的输入不为空！");
+				}
+			}
+			/*
+			！逻辑非操作符，无论这个值是什么数据类型，这个操作符都会返回一个布尔值。
+			逻辑非操作符首先会将它的操作数转换成一个布尔值，然后再求反。
+			对空字符串、数值0、null、NaN、undefined返回true
+			 */
+		}
+	</script>
+</body>
+</html>

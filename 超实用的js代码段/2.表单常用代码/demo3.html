@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2.3 禁止输入</title>
+</head>
+<body>
+	<h2>第一种方案：通过表单元素的特殊属性来控制输入</h2>
+	<div>表单元素特殊属性 一 <input type="text" value="禁止输入" disabled></div>
+	<div>表单元素特殊属性 二 <input type="text" value="禁止输入" disabled="disabled"></div>
+	<div>表单元素特殊属性 三 <input type="text" value="禁止输入" readonly></div>
+	<h2>通过JavaScript控制输入的方式</h2>
+	<div><input type="text" value="禁止输入" id="inhibitingInput"></div>
+	<div><input type="text" value="禁止输入" id="inhibitingInput1"></div>
+	<!-- inhibiting 抑制 -->
+
+	<script type="text/javascript">
+		window.onload = function(){
+			var _inhibitingInput = document.getElementById('inhibitingInput');//获取响应元素
+			var _inhibitingInput1 = document.getElementById('inhibitingInput1');
+
+            _inhibitingInput.onfocus = function(){
+            	_inhibitingInput.blur();//控制失去焦点
+            }
+            /*
+            onfocus事件在对象获得焦点时发生
+            blur() 移开焦点
+             */
+
+            var noText = function(){
+            	_inhibitingInput1.value = "";//设置值为空
+            }
+
+            _inhibitingInput1.onkeyup = _inhibitingInput1.onblur = noText;
+            /*
+            onkeyup事件会在键盘按键被松开时发生。
+            onblur事件会在对象失去焦点时发生。
+             */
+
+
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2.8 限制字符串长度</title>
+</head>
+<body>
+	<h2>方案一：maxlength属性</h2>
+	<input type="text" name="iname" maxlength="5"><br>
+	<h2>方案二：使用JavaScript</h2>
+	<input type="text" data-length="5" id="limitLength" data-model='Ch' name="Iname"><br>
+
+	<script type="text/javascript">
+		window.onload = function(){
+			var limitLength = document.getElementById('limitLength'),//获取限制对象
+			    clearNonumber = function(tThis){                     //清除数字
+                    var _v = tThis.value,
+                        _vLen = _v.length,
+                        dataLength = tThis.getAttribute("data-length"),//获取长度属性
+                    dataModel = tThis.getAttribute("data-model"),
+                    subLen = dataLength;
+                    if (_vLen > dataLength) {
+                    	tThis.value = _v.substr(0,subLen);
+                    	//判断长度substr() 方法可在字符串中抽取从 start 下标开始的指定数目的字符。
+                    }
+
+			    };
+			limitLength.onfocus = function(){
+				clearNonumber(this);
+			}
+			limitLength.onkeyup = function(){
+				clearNonumber(this);
+			}
+			limitLength.onblur = function(){
+				clearNonumber(this);
+			}
+		}
+	</script>
+</body>
+</html>

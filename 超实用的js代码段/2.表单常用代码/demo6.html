@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2.6 限制只能输入数字</title>
+</head>
+<body>
+	<form>
+	    <h2>方案一：使用HTML5</h2>
+		<input type="number" name="numberHTML5" value="HTML5只能输入数字" id="banNumberHTML5">
+		<input type="text" value="HTML5只能输入数字" pattern=[0-9] id="patternHTML5"><!-- 只能输入一个数字 -->
+		<h2>方案二：使用JavaScript</h2>
+		<input type="text" name="number" value="只能输入数字" id="banNumber"><br>
+		<input type="submit" value="提交">
+	</form>
+
+	<script type="text/javascript">
+		var banNumber = document.getElementById('banNumber'),
+		    clearNonumber = function(tThis){    //过滤数字
+                var _v = tThis.value;
+                tThis.value = _v.replace(/\D/g,"");//\D	匹配一个非数字字符。等价于[^0-9]
+		    }
+		banNumber.onfocus = function(){ //绑定获取焦点事件
+			clearNonumber(this);
+		}
+		banNumber.onkeyup = function(){ //绑定键盘事件
+			clearNonumber(this);
+		}
+		banNumber.onblur = function(){  //失去焦点事件
+			clearNonumber(this);
+		}
+	</script>
+</body>
+</html>
