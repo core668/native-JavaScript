@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2.11 在输入框中显示提示信息</title>
+</head>
+<body>
+    <h2>显示输入提示，获取焦点提示取消</h2>
+	<input type="text" name="info" placeholder="HTML5提示信息"> <!-- placeholder 占位符-->
+    <input id="hintInput" data-hint="我是提示信息" type="password" value=""><!-- hint 提示 -->
+
+    <script type="text/javascript">
+    	window.onload = function(){
+    		var setCss = function(_this,cssOption){//设置样式
+                //检测节点类型
+                if (!_this||_this.nodeType === 3 || _this.nodeType === 8 || !_this.style) {
+                	return; //nodeType === 3 文本节点 nodeType === 8注释
+                }
+                //遍历样式
+                for(var cs in cssOption){
+                	_this.style[cs] = cssOption[cs];
+                }
+                return _this;
+    		},
+    		    //获取目标元素
+    		    hintInput = document.getElementById('hintInput'),
+                //创建span节点
+                _span = document.createElement('span'),
+                dataHint = hintInput.getAttribute('data-hint');
+            _span.innerText = dataHint;
+            setCss(_span,{
+            	'position':'absolute',
+            	'left':hintInput.offsetLeft+2,
+            	//HTMLElement.offsetLeft 是一个只读属性，返回当前元素左上角相对于 HTMLElement.offsetParent 节点的左边界偏移的像素值。
+            	'top':hintInput.offsetTop,
+            	'zIndex':2
+            });
+            //className默认值为hintInput
+            _span.className = 'hintInput';
+            hintInput.value = '';
+            //设置默认id属性为hint0
+            _span.setAttribute('id','hint0');
+            //插入元素
+            hintInput.parentNode.insertBefore(_span,hintInput);
+            //隐藏元素
+            var onhint = function(e){
+            	setCss(_span,{
+            		'display':'none'
+            	})
+            	//获取焦点
+            	hintInput.focus();
+            }
+            //失去焦点显示元素
+            hintInput.onblur = function(e){
+                //正则过滤字符判断文本是否为空
+                if (!hintInput.value.replace(/^(\s|\u00A0)+|(\s|\u00A0)+$/g,'')) {
+                	setCss(_span,{
+                		'display':'inline-block'
+                	})
+                }
+            }
+            //单击事件与获取焦点事件使用同一个函数处理
+            _span.onclick = hintInput.onfocus = onhint;
+    	}
+    </script>
+</body>
+</html>
